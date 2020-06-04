@@ -86,7 +86,7 @@ void Board::clear() {
 
 
 double distance(std::pair<int,int> location, int x, int y){
-    return std::distance(location.first, location.scond, x, y); //sqrt(abs(pow(x-location.first,2)+pow(y-location.scond,2)));
+    return std::distance(location.first, location.second, x, y); //sqrt(abs(pow(x-location.first,2)+pow(y-location.scond,2)));
 }
 void FootSoldier::shoot(){
 
