@@ -1,8 +1,8 @@
-
-#ifndef Paramedic_H
-#define Paramedic_H
+#pragma once
+// #ifndef Paramedic_H
+// #define Paramedic_H
 #include "Paramedic.hpp"
-#endif
+// #endif
 
 class ParamedicCommander : public Paramedic {
 public:

@@ -1,8 +1,8 @@
-
-#ifndef Sniper_H
-#define Sniper_H
+#pragma once
+// #ifndef Sniper_H
+// #define Sniper_H
 #include "Sniper.hpp"
-#endif
+// #endif
 
 class SniperCommander : public Sniper {
 public:

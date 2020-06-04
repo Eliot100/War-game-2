@@ -1,8 +1,8 @@
-
-#ifndef FootSoldier_H
-#define FootSoldier_H
+#pragma once
+// #ifndef FootSoldier_H
+// #define FootSoldier_H
 #include "FootSoldier.hpp"
-#endif
+// #endif
 
 class FootCommander : public FootSoldier {
 public:
