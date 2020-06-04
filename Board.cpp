@@ -86,10 +86,10 @@ void Board::clear() {
     }
 }
 
-
 double distance(std::pair<int,int> location, int x, int y){
     return std::sqrt(std::pow(location.first - x, 2) +  std::pow(location.second - y, 2) * 1.0);
 }
+
 void FootSoldier::shoot(){
 
     switch (this) {
@@ -192,30 +192,20 @@ void FootSoldier::shoot(){
 }
 
 void Paramedic::heal(){
-
-        for (int i = -1; i < 1; ++i) {
-            for (int j = -1; j < 1; ++j) {
-                if(i==0 && j==0){
-                    j+=1;
-                }
-                if (board[source.first + j][source.second + i] != nullptr &&
-                    board[source.first + j][source.second + i].player == this.player) {
-                    if (board[source.first][source.second].damage = 10)
-                        board[source.first + j][source.second + i].health == 100;
-                    if (board[source.first][source.second].damage = 0)
-                        board[source.first + j][source.second + i].health == 100;
-                    if (board[source.first][source.second].damage = 20)
-                        board[source.first + j][source.second + i].health == 150;
-                    if (board[source.first][source.second].damage = 50)
-                        board[source.first + j][source.second + i].health == 100;
-                    if (board[source.first][source.second].damage = 100)
-                        board[source.first + j][source.second + i].health == 120;
-                    if (board[source.first][source.second].damage = 1)
-                        board[source.first + j][source.second + i].health == 200;
-                }
-            }
-        }
-    if(this->damage==1) {
+	for (int i = -1; i =< 1; ++i) {
+		for (int j = -1; j =< 1; ++j) {
+			if(i==0 && j==0){
+				j+=1;
+			}
+			if (board[source.first + j][source.second + i] != nullptr &&
+				board[source.first + j][source.second + i].player == this.player) {
+				board[source.first + j][source.second + i].SetHealth();
+			}
+		}
+	}
+    
+}
+if(this->damage==1) {
         for (; i < 8; i++)
             for (; j < 8; j++) {
                 if (board[j][i] != nullptr &&
@@ -225,7 +215,6 @@ void Paramedic::heal(){
                 }
             }
     }
-}
 
 bool Board::has_soldiers(uint player_number) const {
     for (; i < cols; i++) {
