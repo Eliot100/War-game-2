@@ -1,5 +1,8 @@
 
-// #include "Sniper.hpp"
+#ifndef Sniper_H
+#define Sniper_H
+#include "Sniper.hpp"
+#endif
 
 class SniperCommander : public Sniper {
 public:

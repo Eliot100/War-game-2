@@ -1,5 +1,8 @@
 
-// #include "Paramedic.hpp"
+#ifndef Paramedic_H
+#define Paramedic_H
+#include "Paramedic.hpp"
+#endif
 
 class ParamedicCommander : public Paramedic {
 public:
