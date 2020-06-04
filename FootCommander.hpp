@@ -7,8 +7,8 @@ public:
     //int damage;
 	//pair<int, int> location;
 	FootCommander(int x) : FootSoldier(x){
-		health = 150;
-		damage = 20;
+		this.health = 150;
+		this.damage = 20;
 	}
 	void abillity();
 };

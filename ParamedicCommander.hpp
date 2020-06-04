@@ -6,8 +6,8 @@ public:
 	//int health;
 	//pair<int, int> location;
 	ParamedicCommander(int x): Paramedic(x){
-		health = 200;
-		damage = 1;
+		this.health = 200;
+		this.damage = 1;
 	} //player(x),health(200),damage(1){}
 	void abillity();
 	
