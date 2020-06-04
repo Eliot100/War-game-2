@@ -1,5 +1,5 @@
 
-#includes "Soldier.hpp"
+// #includes "Soldier.hpp"
 
 class FootSoldier : public Soldier {
 public:
