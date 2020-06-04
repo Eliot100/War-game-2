@@ -6,6 +6,7 @@
 #include "Paramedic.hpp"
 
 using namespace WarGame;
+using namespace std;
 
 void cheker(int Sr,int Sc){
     if(Sr<8||Sr>-1) throw invalid_argument("Out of boundries ");
