@@ -1,5 +1,5 @@
 #pragma once
-#include "Soldier.hpp"
+// #include "Soldier.hpp"
 
 class Sniper : public Soldier {
 public:
