@@ -3,6 +3,7 @@
 using namespace std;
 #ifndef SOLDIER_H
 #define SOLDIER_H
+
 namespace Soldiers {
 	
     class Soldier {
@@ -12,7 +13,7 @@ namespace Soldiers {
         int damage;
         std::pair<int, int> location;
         virtual void abillity();
-		Soldier(int p, int h, int d) : player(p), health(h), damage(d){}
+		// Soldier(int p, int h, int d) : player(p), health(h), damage(d){}
 
     };
 
