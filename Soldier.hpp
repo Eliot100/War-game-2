@@ -11,8 +11,8 @@ namespace Soldiers {
 		int health;
         int damage;
         std::pair<int, int> location;
-
         virtual void abillity();
+		Soldier(int p, int h, int d) : player(p), health(h), damage(d){}
 
     };
 
