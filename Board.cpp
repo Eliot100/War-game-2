@@ -28,7 +28,7 @@ void Board::move(uint player_number, std::pair<int,int> source, MoveDIR directio
     if (soldier == nullptr) {
         throw invalid_argument("Soldier don`t exist");
     }
-    if (*(soldier.player) != player_number) {
+    if (*(soldier->player) != player_number) {
         throw invalid_argument("Soldier of other player");
     }
 
@@ -64,13 +64,13 @@ void Board::move(uint player_number, std::pair<int,int> source, MoveDIR directio
         board[source.first][source.second] = nullptr;
         soldier->location.second = source.second - 1;
     }
-    if (soldier->damage == 0 || soldier->damage == 1) {
-        Paramedic *tal = soldier;
-        tal->heal();
-    } else {
-        Shooter *ron = soldier;
-        ron->shoot();
-    }
+    // if (soldier->damage == 0 || soldier->damage == 1) {
+        // Paramedic *tal = soldier;
+        // tal->heal();
+    // } else {
+        // Shooter *ron = soldier;
+        // ron->shoot();
+    // }
 }
 
 void Board::clear() {
