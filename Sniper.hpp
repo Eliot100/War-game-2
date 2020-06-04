@@ -3,7 +3,11 @@
 
 class Sniper : public Soldier {
 public:
-	Sniper(int x): player(x), health(100), damage(50){}
+	Sniper(int x) {
+		this->player = x;
+		this->health = 100;
+		this->damage = 50;
+	}
 	void abillity();
 	void shoot();
 };

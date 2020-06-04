@@ -3,7 +3,11 @@
 
 class FootSoldier : public Soldier {
 public:
-	FootSoldier(int x): player(x), health(100), damage(10){}
+	FootSoldier(int x) {
+		this->player = x;
+		this->health = 100;
+		this->damage = 10;
+	}
 	void abillity();
 	void shoot();
 };
