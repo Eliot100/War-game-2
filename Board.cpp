@@ -1,4 +1,5 @@
 
+#include <cmath>
 #include "Board.hpp"
 #include "FootCommander.hpp"
 #include "SniperCommander.hpp"
