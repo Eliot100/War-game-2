@@ -28,7 +28,7 @@ void Board::move(uint player_number, std::pair<int,int> source, MoveDIR directio
     if (soldier == nullptr) {
         throw invalid_argument("Soldier don`t exist");
     }
-    if (*(soldier->player) != player_number) {
+    if (soldier->player != player_number) {
         throw invalid_argument("Soldier of other player");
     }
 
@@ -86,7 +86,7 @@ void Board::clear() {
 
 
 double distance(std::pair<int,int> location, int x, int y){
-    return sqrt(abs(pow(x-location.first,2)+pow(y-location.scond,2)));
+    return std::distance(location.first, location.scond, x, y); //sqrt(abs(pow(x-location.first,2)+pow(y-location.scond,2)));
 }
 void FootSoldier::shoot(){
 
