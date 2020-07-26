@@ -7,31 +7,25 @@
  * @author Erel Segal-Halevi
  * @since  2020-05
  */
+#pragma once
 #include <string>
 #include <vector>
 #include <stdexcept>
 #include "Soldier.hpp"
 
-using namespace Soldiers;
 
 namespace WarGame {
+
 class Board {
   private:
-	int cols, rows;
-	std::vector<std::vector<Soldier*>> board;
-//    std::vector<std::vector<Soldier*> P1;//[0]=FootSoldier
-//    std::vector<std::vector<Soldier*> P2;
-
-    public:
+    uint nRows;
+    uint nCols;
+    std::vector<std::vector<Soldier*>> board;
+  public:
     enum MoveDIR { Up, Down, Right, Left };
-
-    Board(uint numRows, uint numCols) : rows(numRows), cols(numCols),
-      board(numRows, std::vector<Soldier*>(numCols, nullptr)) {
-//        for (int i = 0; i <= 6; i++) {
-//            P1.push_back(std::vector <Soldier*> );
-//                P2.push_back(std::vector<Soldier*>);
-//    }
-    }
+    
+    Board(uint numRows, uint numCols) : 
+      board(numRows, std::vector<Soldier*>(numCols, nullptr)), nRows(numRows), nCols(numCols) {}
 
     // operator for putting soldiers on the game-board during initialization.
     Soldier*& operator[](std::pair<int,int> location);
@@ -54,9 +48,11 @@ class Board {
 
     // returns true iff the board contains one or more soldiers of the given player.
     bool has_soldiers(uint player_number) const;
-  
-    void clear();
+    
+    ~Board()
+    {
+      board.clear();
+    }
 };
 
 }
-//#endif

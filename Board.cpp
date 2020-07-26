@@ -1,229 +1,75 @@
-
-#include <cmath>
 #include "Board.hpp"
-#include "FootCommander.hpp"
-#include "SniperCommander.hpp"
-#include "ParamedicCommander.hpp"
-#include "Paramedic.hpp"
+#include "Soldier.hpp"
 
-using namespace WarGame;
-using namespace std;
-
-void cheker(int Sr,int Sc){
-    if(Sr<8||Sr>-1) throw invalid_argument("Out of boundries ");
-    else if(Sc<8||Sc>-1) throw invalid_argument("Out of boundries ");
-}
-
-Soldier*& Board::operator[](std::pair<int,int> location) {
-    cheker(location.first, location.second);
-    return board[location.first][location.second];
-
-}
- 
-Soldier* Board::operator[](std::pair<int,int> location) const {
-    return board[location.first][location.second];
-}
-
-void Board::move(uint player_number, std::pair<int,int> source, MoveDIR direction) {
-    cheker(source.first, source.second);
-    Soldier *soldier = board[source.first][source.second];
-    if (soldier == nullptr) {
-        throw invalid_argument("Soldier don`t exist");
+namespace WarGame {
+    Soldier*& Board::operator[](std::pair<int,int> location){
+        // maybe check location first
+        return board[location.first][location.second];
     }
-    if (soldier->player != player_number) {
-        throw invalid_argument("Soldier of other player");
-    }
-
-    if (direction == Down) {
-        if (board[source.first - 1][source.second] != nullptr) {
-            throw invalid_argument("The place is occupied ");
-        }
-        board[source.first - 1][source.second] = soldier;
-        board[source.first][source.second] = nullptr;
-        soldier->location.first = source.first + 1;
-
-    } else if (direction == Up) {
-        if (board[source.first + 1][source.second] == nullptr) {
-            throw invalid_argument("The place is occupied ");
-        }
-        board[source.first + 1][source.second] = soldier;
-        board[source.first][source.second] = nullptr;
-        soldier->location.first = source.first - 1;
-
-    } else if (direction == Right) {
-        if (board[source.first][source.second + 1] == nullptr) {
-            throw invalid_argument("The place is occupied ");
-        }
-        board[source.first][source.second + 1] = soldier;
-        board[source.first][source.second] = nullptr;
-        soldier->location.second = source.second + 1;
-
-    } else if (direction == Left) {
-        if (board[source.first][source.second - 1] == nullptr) {
-            throw invalid_argument("The place is occupied ");
-        }
-        board[source.first][source.second - 1] = soldier;
-        board[source.first][source.second] = nullptr;
-        soldier->location.second = source.second - 1;
-    }
-    // if (soldier->damage == 0 || soldier->damage == 1) {
-        // Paramedic *tal = soldier;
-        // tal->heal();
-    // } else {
-        // Shooter *ron = soldier;
-        // ron->shoot();
-    // }
-}
-
-void Board::clear() {
-    int i = 0, j = 0;
-    for (; i < cols; i++) {
-        for (; j < rows; j++) {
-            if (this->board[i][j]) {
-                delete this->board[i][j];
-            }
-        }
-    }
-}
-
-double distance(std::pair<int,int> location, int x, int y){
-    return std::sqrt(std::pow(location.first - x, 2) +  std::pow(location.second - y, 2) * 1.0);
-}
-
-void FootSoldier::shoot(){
-
-    switch (this) {
-        case FootSoldier:
-            Soldier *closestSoldier;
-            double D = 10000, t = 0;
-            for (int i = 0; i < 8; ++i) {
-                for (int j = 0; j < 8; ++j) {
-                    if (board[this.location.first + j][this.location.second + i] != nullptr &&
-                        board[this.location.first + j][this.location.second + i].player != this.player) {
-                        t = distance(this.location, this.location.first + j, this.location.second + i)
-                        if (t < D) {
-                            D = t;
-                            closestSoldier = board[source.first + j][source.second + i];
-                        }
-                    }
-                }
-            }
-
-            closestSoldier.health -= this.damage;
-
-            if (closestSoldier.health <= 0)
-                delete closestSoldier;
-            break;
-
-        case FootCommander:
-            Soldier *closestSoldier;
-            double D = 10000, t = 0;
-            for (int i = 0; i < 8; ++i) {
-                for (int j = 0; j < 8; ++j) {
-                    if (board[this.location.first + j][this.location.second + i] != nullptr &&
-                        board[this.location.first + j][this.location.second + i].player != this.player) {
-                        t = distance(this.location, this.location.first + j, this.location.second + i)
-                        if (t < D) {
-                            D = t;
-                            closestSoldier = board[source.first + j][source.second + i];
-                        }
-                    }
-                }
-            }
-
-            closestSoldier.health -= this.damage;
-
-            if (closestSoldier.health <= 0)
-                delete closestSoldier;
-
-
-            for (; i < 8; i++)
-                for (; j < 8; j++) {
-                    if (board[j][i] != nullptr &&
-                        board[j][i].player == this.player) {
-                        if (*(board[j][i].damage) == 10)
-                            board[j][i].shoot();
-                    }
-                }
-            break;
-
-
-        case Sniper:
-            Soldier *soldierStrong;
-            for (; i < 8; i++)
-                for (; j < 8; j++) {
-                    if (board[j][i] != nullptr &&
-                        board[j][i].player != this.player) {
-                        if (*(board[source.first + j][source.second + i].health) > *(soldierStrong.health))
-                            soldierStrong = board[source.first + j][source.second + i];
-                    }
-                }
-            *(soldierStrong).health -= this.damage;
-            if (*(soldierStrong).health >= 0)
-                delete soldierStrong;
-            break;
-
-        case SniperCommander
-
-            for (; i < 8; i++)
-                for (; j < 8; j++) {
-                    if (board[j][i] != nullptr &&
-                        board[j][i].player != this.player) {
-                        if (*(board[source.first + j][source.second + i].health) > *(soldierStrong.health))
-                            soldierStrong = board[source.first + j][source.second + i];
-                    }
-                }
-            *(soldierStrong).health -= this.damage;
-            if (*(soldierStrong).health >= 0)
-                delete soldierStrong;
-
-            for (; i < 8; i++)
-                for (; j < 8; j++) {
-                    if (board[j][i] != nullptr &&
-                        board[j][i].player == this.player) {
-                        if (*(board[j][i].damage) == 50)
-                            board[j][i].shoot();
-                    }
-                }
-            break;
-
-        case
-    }
-}
-
-void Paramedic::heal(){
-	for (int i = -1; i =< 1; ++i) {
-		for (int j = -1; j =< 1; ++j) {
-			if(i==0 && j==0){
-				j+=1;
-			}
-			if (board[source.first + j][source.second + i] != nullptr &&
-				board[source.first + j][source.second + i].player == this.player) {
-				board[source.first + j][source.second + i].SetHealth();
-			}
-		}
-	}
     
-}
-if(this->damage==1) {
-        for (; i < 8; i++)
-            for (; j < 8; j++) {
-                if (board[j][i] != nullptr &&
-                    board[j][i].player == this.player) {
-                    if (*(board[j][i].damage) == 0)
-                        board[j][i].heal();
-                }
-            }
+    Soldier* Board::operator[](std::pair<int,int> location) const{
+       return board[location.first][location.second];
+    }
+    
+    void Board::move(uint player_number, std::pair<int,int> source, MoveDIR direction){
+
+      if(source.first < 0 || source.first >= nRows || source.second < 0 || source.second >= nCols)
+        throw std::invalid_argument("Invalid source.");
+
+      if(this->operator[](source) == nullptr)
+        throw std::invalid_argument("Source location has no Soldier.");
+
+      if(this->operator[](source)->get_player() != player_number)
+        throw std::invalid_argument("Not your Soldier.");
+        
+      if(direction == MoveDIR::Left){
+        if((source.second-1 < 0 || source.second-1 >= nCols) || this->operator[]({source.first,source.second-1}) != nullptr){
+          throw std::invalid_argument("There is already solider in that location");
+        }
+        std::pair<int, int> new_s = {source.first,source.second-1};
+          this->operator[](new_s) = this->operator[](source);
+          this->operator[](source) = nullptr;
+          this->operator[](new_s)->ability(new_s, board);
+      }
+      else if(direction == MoveDIR::Right){
+        if((source.second+1 < 0 || source.second+1 >= nCols) || this->operator[]({source.first,source.second+1}) != nullptr){
+          throw std::invalid_argument("There is already solider in that location");
+        }
+        std::pair<int, int> new_s = {source.first,source.second+1};
+          this->operator[](new_s) = this->operator[](source);
+          this->operator[](source) = nullptr;
+          this->operator[](new_s)->ability(new_s, board);
+      }
+      else if(direction == MoveDIR::Up){
+        if((source.first+1 < 0 || source.first+1 >= nRows) || this->operator[]({source.first+1,source.second}) != nullptr){
+          throw std::invalid_argument("There is already solider in that location");
+        }
+        std::pair<int, int> new_s = {source.first+1,source.second};
+        this->operator[](new_s) = this->operator[](source);
+        this->operator[](source) = nullptr;
+        this->operator[](new_s)->ability(new_s, board);
+      }
+      else if(direction == MoveDIR::Down){
+        if((source.first-1 < 0 || source.first-1 >= nRows) || this->operator[]({source.first-1,source.second}) != nullptr){
+          throw std::invalid_argument("There is already solider in that location");
+        }
+        std::pair<int, int> new_s = {source.first-1,source.second};
+          this->operator[](new_s) = this->operator[](source);
+          this->operator[](source) = nullptr;
+          this->operator[](new_s)->ability(new_s, board);
+      }
+      else
+        throw std::invalid_argument("Invalid direction.");
     }
 
-bool Board::has_soldiers(uint player_number) const {
-    for (; i < cols; i++) {
-        for (; j < rows; j++) {
-            if (this->board[i][j] != nullptr) {
-                if (board[i][j].player == player_number)
-                    return true;
-            }
+    // returns true iff the board contains one or more soldiers of the given player.
+    bool Board::has_soldiers(uint player_number) const{
+      for(int i = 0; i <nRows; i++){
+        for(int j = 0; j < nCols; j++){
+          if(board[i][j] != nullptr && board[i][j]->get_player() == player_number)
+            return true;
         }
+      }
+      return false;
     }
-    return false;
 }
